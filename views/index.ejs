@@ -42,13 +42,14 @@
     </body>
     <script>
         const PORT = "<%= PORT %>";
+        console.log(PORT)
         document
             .getElementById("button")
             .addEventListener("click", async (e) => {
                 const nameUrl = document.getElementById("name-url").value;
                 const linkUrl = document.getElementById("basic-url").value;
 
-                const response = await fetch(`http://localhost:${PORT}`, {
+                const response = await fetch(`https://url-shortener-ramon.herokuapp.com/:${PORT}`, {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json; charset=utf-8",
@@ -64,7 +65,7 @@
                     return alert(dataResponse.data.message);
                 console.log(dataResponse);
                 alert(
-                    `Para acessar a url, basta digitar: https://localhost:${PORT}/${
+                    `Para acessar a url, basta digitar: https://url-shortener-ramon.herokuapp.com/:${PORT}/${
                         Object(dataResponse).name
                     }`
                 );

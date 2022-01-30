@@ -24,7 +24,7 @@ app.get('/:name', async (req, res) => {
 
 app.get('/', async (req, res) => {
     return res.render('index.ejs', {
-        PORT: process.env.PORT || 3000,
+        PORT: process.env.PORT,
     });
 });
 
