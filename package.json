@@ -6,6 +6,9 @@
   "repository": "https://github.com/ramonpaolo/url-shortner",
   "author": "Ramon Paolo Maran",
   "license": "MIT",
+  "engines": {
+    "node": "14.x"
+  },
   "scripts": {
     "start": "node ./dist/routes.js",
     "dev": "nodemon ./src/routes.ts",

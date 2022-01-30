@@ -10,6 +10,8 @@ import connectionMongoDb from './settings/mongodb';
 
 dotenv.config()
 
+const PORT = process.env.PORT || 3000;
+
 const app = express();
 
 connectionMongoDb();
@@ -27,4 +29,4 @@ app.use(express.json());
 
 app.use(urlShortner);
 
-app.listen(3000);
+app.listen(PORT);

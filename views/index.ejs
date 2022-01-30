@@ -41,13 +41,14 @@
         </div>
     </body>
     <script>
+        const PORT = "<%= PORT %>";
         document
             .getElementById("button")
             .addEventListener("click", async (e) => {
                 const nameUrl = document.getElementById("name-url").value;
                 const linkUrl = document.getElementById("basic-url").value;
 
-                const response = await fetch("http://localhost:3000/", {
+                const response = await fetch(`http://localhost:${PORT}`, {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json; charset=utf-8",
@@ -63,7 +64,7 @@
                     return alert(dataResponse.data.message);
                 console.log(dataResponse);
                 alert(
-                    `Para acessar a url, basta digitar: https://localhost:3000/${
+                    `Para acessar a url, basta digitar: https://localhost:${PORT}/${
                         Object(dataResponse).name
                     }`
                 );
