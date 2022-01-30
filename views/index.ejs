@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Url Shortner</title>
+        <link
+            rel="stylesheet"
+            href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+            integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+            crossorigin="anonymous"
+        />
+    </head>
+    <body>
+        <div class="text-center container">
+            <h1 class="title">Encurtador de URLs</h1>
+            <label for="name-url">Nome da URL</label>
+            <div class="input-group mx-0">
+                <input
+                    type="text"
+                    id="name-url"
+                    class="form-control mx-5 my-2"
+                    placeholder="Ex: youtube"
+                />
+            </div>
+
+            <label for="basic-url">Link do site</label>
+            <div class="input-group">
+                <input
+                    type="url"
+                    class="form-control mx-5 my-2"
+                    id="basic-url"
+                    aria-describedby="basic-addon3"
+                    placeholder="Ex: https://youtube.com"
+                />
+            </div>
+            <button id="button" type="submit" class="btn btn-dark">
+                Cadastrar
+            </button>
+        </div>
+    </body>
+    <script>
+        document
+            .getElementById("button")
+            .addEventListener("click", async (e) => {
+                const nameUrl = document.getElementById("name-url").value;
+                const linkUrl = document.getElementById("basic-url").value;
+
+                const response = await fetch("http://localhost:3000/", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json; charset=utf-8",
+                    },
+                    body: JSON.stringify({
+                        name: nameUrl,
+                        url: linkUrl,
+                    }),
+                });
+                const dataResponse = await response.json();
+
+                if (dataResponse.status === "error")
+                    return alert(dataResponse.data.message);
+                console.log(dataResponse);
+                alert(
+                    `Para acessar a url, basta digitar: https://localhost:3000/${
+                        Object(dataResponse).name
+                    }`
+                );
+            });
+    </script>
+</html>
