@@ -12,7 +12,7 @@ A aplicação consiste em poder criar url personalizadas de links/urls/sites
 
 O usuário poderá criar uma url personalizada colocando o nome que desejar para acessar a URL original
 
-Link do projeto: https://url-shortener-ramon.herokuapp.com
+Link do projeto: https://urlshorte.herokuapp.com/
 
 ---
 
