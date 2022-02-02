@@ -6,17 +6,22 @@ import UrlModel from '../models/urlModel';
 const app = express();
 
 app.get('/:name', async (req, res) => {
+    const { name } = req.params;
     const verifyUrlExists = await UrlModel.findOne({
-        name: String(req.params.name),
+        name,
     });
 
-    if (verifyUrlExists === null)
-        return res.status(401).json({
-            status: 'error',
-            data: {
-                message: 'url not exists',
+    if (verifyUrlExists === null) {
+        const names = await UrlModel.find(
+            {
+                $text: {
+                    $search: String(name),
+                },
             },
-        });
+        );
+        console.log(names);
+        return res.status(404).render('404.ejs', { name, names });
+    }
 
     const { url } = verifyUrlExists;
     return res.redirect(url);
@@ -58,5 +63,7 @@ app.post('/', async (req, res) => {
 
     return res.status(201).json(urlCreated);
 });
+
+app.get('/*', (_, res) => res.status(404).render('error.ejs'));
 
 export default app;
