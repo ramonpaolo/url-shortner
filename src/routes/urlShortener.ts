@@ -3,27 +3,45 @@ import express from 'express';
 // ---- Models
 import UrlModel from '../models/urlModel';
 
+//---- Settings
+import redis from '../settings/redis';
+
 const app = express();
 
 app.get('/:name', async (req, res) => {
     const { name } = req.params;
+
+    const responseCache = await redis.get(`${name}`);
+
+    if (responseCache !== null) {
+        return res.redirect(JSON.parse(responseCache)['url']);
+    }
+
     const verifyUrlExists = await UrlModel.findOne({
         name,
     });
 
     if (verifyUrlExists === null) {
-        const names = await UrlModel.find(
-            {
-                $text: {
-                    $search: String(name),
-                },
+        const names = await UrlModel.find({
+            $text: {
+                $search: String(name),
             },
-        );
-        console.log(names);
+        });
         return res.status(404).render('404.ejs', { name, names });
     }
 
     const { url } = verifyUrlExists;
+
+    const oneHourInSeconds = 60 * 60;
+
+    await redis.setex(
+        `${name}`,
+        oneHourInSeconds,
+        JSON.stringify({
+            url,
+            name,
+        })
+    );
     return res.redirect(url);
 });
 
@@ -35,8 +53,6 @@ app.get('/', async (req, res) => {
 
 app.post('/', async (req, res) => {
     const { name, url } = req.body;
-
-    console.log(req.body);
 
     const verifyNameExists = await UrlModel.findOne({
         name,
@@ -58,12 +74,10 @@ app.post('/', async (req, res) => {
             url,
         });
     } catch (e) {
-        console.log('error to create user: ', e);
+        console.log('error to create url: ', e);
     }
 
     return res.status(201).json(urlCreated);
 });
-
-app.get('/*', (_, res) => res.status(404).render('error.ejs'));
 
 export default app;

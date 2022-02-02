@@ -1,14 +1,15 @@
 import express from 'express';
 import cors from 'cors';
-import dotenv from 'dotenv'
+import dotenv from 'dotenv';
 
 // ---- Routes
 import urlShortner from './routes/urlShortener';
 
 // ---- Settings
 import connectionMongoDb from './settings/mongodb';
+// import redisCache from './settings/redis';
 
-dotenv.config()
+dotenv.config();
 
 const PORT = process.env.PORT || 3000;
 

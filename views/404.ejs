@@ -31,18 +31,21 @@
             >
             para criar uma URL com esse endereço
         </p>
-        
+
         <h2>URLs parecidas com a pesquisada:</h2>
 
         <% names.forEach((n) => {%>
-        <div style="display: flex; margin-top: 12px;">
+        <div style="display: flex; margin-top: 12px">
             <h4 class="gradient">Custom URL:</h4>
-            <h4 class="rainbow"><a href="https://urlshorte.herokuapp.com/<%=n.name%>"><%= n.name %></a></h4>
+            <h4 class="rainbow">
+                <a href="https://urlshorte.herokuapp.com/<%=n.name%>"
+                    ><%= n.name %></a
+                >
+            </h4>
             |
             <h4 class="gradient">Original URL:</h4>
             <h4 class="rainbow"><a href="<%=n.url%>"><%= n.url %></a></h4>
         </div>
         <% }); %>
-
     </body>
 </html>
