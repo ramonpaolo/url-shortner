@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Page <%= name %> not exists</title>
+        <link
+            rel="stylesheet"
+            href="https://cocky-bhabha-ac0fde.netlify.app/index.css"
+        />
+        <style>
+            h2,
+            h3,
+            h4,
+            h5,
+            h6 {
+                display: inline;
+                margin: 0 4px;
+                padding: 0;
+            }
+        </style>
+    </head>
+    <body>
+        <h1 class="rainbow">A página "<%= name %>" não pode ser encontrada</h1>
+
+        <p class="gradient">
+            Vá para a página
+            <a href="/" class="rainbow" style="color: black; font-size: 1.1rem"
+                >Home</a
+            >
+            para criar uma URL com esse endereço
+        </p>
+        
+        <h2>URLs parecidas com a pesquisada:</h2>
+
+        <% names.forEach((n) => {%>
+        <div style="display: flex; margin-top: 12px;">
+            <h4 class="gradient">Custom URL:</h4>
+            <h4 class="rainbow"><a href="https://urlshorte.herokuapp.com/<%=n.name%>"><%= n.name %></a></h4>
+            |
+            <h4 class="gradient">Original URL:</h4>
+            <h4 class="rainbow"><a href="<%=n.url%>"><%= n.url %></a></h4>
+        </div>
+        <% }); %>
+
+    </body>
+</html>
