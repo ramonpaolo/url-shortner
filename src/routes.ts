@@ -3,6 +3,7 @@ import cors from 'cors';
 import dotenv from 'dotenv';
 import compression from 'compression';
 import expressRateLimit from 'express-rate-limit'
+import helmet from 'helmet';
 
 // ---- Routes
 import urlShortner from './routes/urlShortener';
@@ -31,6 +32,8 @@ app.use(expressRateLimit({
     max: 10,
     windowMs: 1 * 60 * 1000
 }))
+
+app.use(helmet())
 
 app.use(compression());
 
