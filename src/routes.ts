@@ -1,13 +1,13 @@
 import express from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';
+import compression from 'compression';
 
 // ---- Routes
 import urlShortner from './routes/urlShortener';
 
 // ---- Settings
 import connectionMongoDb from './settings/mongodb';
-// import redisCache from './settings/redis';
 
 dotenv.config();
 
@@ -17,6 +17,8 @@ const app = express();
 
 connectionMongoDb();
 
+app.set('view engine', 'ejs');
+
 app.use(
     cors({
         origin: '*',
@@ -24,7 +26,7 @@ app.use(
     })
 );
 
-app.set('view engine', 'ejs');
+app.use(compression());
 
 app.use(express.json());
 
