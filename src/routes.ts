@@ -2,6 +2,7 @@ import express from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';
 import compression from 'compression';
+import expressRateLimit from 'express-rate-limit'
 
 // ---- Routes
 import urlShortner from './routes/urlShortener';
@@ -25,6 +26,11 @@ app.use(
         methods: 'GET,POST',
     })
 );
+
+app.use(expressRateLimit({
+    max: 10,
+    windowMs: 1 * 60 * 1000
+}))
 
 app.use(compression());
 
