@@ -28,7 +28,7 @@
     "express-rate-limit": "^6.2.0",
     "helmet": "^5.0.2",
     "ioredis": "^4.28.4",
-    "mongoose": "^6.1.8",
+    "mongoose": "^6.11.3",
     "nodemon": "^2.0.15",
     "serve-favicon": "^2.5.0",
     "ts-node": "^10.4.0",
